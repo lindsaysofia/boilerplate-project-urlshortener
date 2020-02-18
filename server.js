@@ -1,8 +1,9 @@
 'use strict';
 
 var express = require('express');
-var mongo = require('mongodb');
+var mongodb = require('mongodb');
 var mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 
 var cors = require('cors');
@@ -45,6 +46,8 @@ app.use(cors());
 
 /** this project needs to parse POST bodies **/
 // you should mount the body-parser here
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -60,5 +63,5 @@ app.get("/api/hello", function (req, res) {
 
 
 app.listen(3000, function () {
-  console.log('Node.js listening ...');
+  console.log('listening on 3000');
 });
